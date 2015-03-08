@@ -1,8 +1,29 @@
-# Angular 2 Quickstart
 
-The Angular 2 quickstart includes all of the dependencies for writing Angular 2 in your browser. 
+angular-2-starter
+=======================
 
-The quickstart contains
- - Pre-built ES5 version of [Angular 2](https://www.npmjs.com/package/angular2) alpha-11
- - Pre-built ES5 version of [rtts-assert](https://www.npmjs.com/package/rtts-assert] alpha-6
- - The es6-shim, which includes Traceur, ES6 Module Loader, System, Zone, and Traceur options for meta-data annotations.
+Seed project using Angular 2
+
+Uses:
+
+* Angular 2
+* Gulp
+* Traceur
+* SystemJS
+
+
+To run app:
+
+* Clone repo
+* Run `gulp` from the project root
+* Navigate to localhost:9000
+* $$$
+
+To Do:
+* More Angular 2 experimentation
+* Realtime transpilation using Traceur (using gulp watch)
+
+
+
+
+

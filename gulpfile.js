@@ -3,6 +3,7 @@ var shell = require('gulp-shell');
 var del = require('del');
 var concat = require('gulp-concat');
 var runSequence = require('run-sequence');
+var connect = require('gulp-connect');
 
 // static dependencies for Angular2
 var deps = [
@@ -27,6 +28,17 @@ gulp.task('build:shim', function() {
     .pipe(gulp.dest('./dist/'));
 });
 
+// Starts a server which serves the dist dir
+gulp.task('connect', function () {
+
+    // Uses gulp-connect plugin to start up a server
+    connect.server({
+        root: ['dist'],
+        port: 9000,
+        livereload: true
+    });
+});
+
 // Delete to start fresh
 gulp.task('clean', function(cb) {
   del([
@@ -36,14 +48,33 @@ gulp.task('clean', function(cb) {
   ], cb);
 });
 
+gulp.task('copy-index', function() {
+  gulp.src('./src/index.html')
+    .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('copy-src', function() {
+  gulp.src('./src/*.es6')
+    .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('watch', function () {
+
+    gulp.watch('./src/index.html', ['copy-index']);
+
+    gulp.watch('./src/*.es6', ['copy-src']);
+});
+
 // Synchronous build
 //  1. clean
 //  2. ng2build
 //  3. concat es6 shim file
-gulp.task('default', function(cb) {
-  runSequence('clean',
-      'build:ng2',
-      'build:shim',
-      'build:strip_maps',
-      cb);
-});
+// gulp.task('default', function(cb) {
+//   runSequence('clean',
+//       'build:ng2',
+//       'build:shim',
+//       'build:strip_maps',
+//       cb);
+// });
+
+gulp.task('default', ['copy-index', 'copy-src', 'connect', 'watch']);
